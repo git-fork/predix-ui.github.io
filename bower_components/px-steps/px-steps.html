@@ -1,0 +1,50 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-icon-set/px-icon-set-navigation.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="css/px-steps-styles.html">
+
+<!--
+
+### Usage
+
+    <px-steps items='[{ id: "1", label: "Select Services"},{ id: "2", label: "Billing"}]'></px-steps>
+
+### Styling
+
+The following custom properties are available for styling (shown with their corresponding default values):
+
+Custom property | Description
+:----------------|:-------------
+`--px-steps-connector-color` | Color for the connecting lines / bubbles
+`--px-steps-text-color` | Default text color for uncompleted and inactive steps
+`--px-steps-text-color--hover` | Text color for steps when hovered
+`--px-steps-text-color--pressed` | Text color for steps when pressed
+`--px-steps-text-color--current` | Text color for the current highlighted step
+`--px-steps-text-color--completed` | Text color for the completed steps
+`--px-steps-min-width` | Minimum width of each step in the stepper
+
+-->
+
+</head><body><dom-module id="px-steps">
+  <template>
+    <style include="px-steps-styles"></style>
+
+    <div class="container flex flex--top">
+      <template id="steps" is="dom-repeat" items="[[items]]">
+        <div class$="step-wrapper [[_getStepState(item,index,currentStep,completed)]]">
+          <div class="step-connector"></div>
+          <div id="[[item.id]]" class="step-item" on-tap="_handleTap">
+            <div class="step-icon">
+              <px-icon icon="px-nav:[[_getIcon(item,completed,completed.*)]]"></px-icon>
+            </div>
+            <div class="step-label">[[item.label]]</div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+  <script>Polymer({is:"px-steps",properties:{items:{type:Array,value:function value(){return[]}},completed:{type:Array,value:function value(){return[]}},currentStep:{type:Number,value:0}},complete:function complete(){if(!this.items||0>=this.items.length){console.warn("Can't complete step: the steps array is empty or undefined.");return}var id=this.items[this.currentStep].id;if(-1===this.completed.indexOf(id)){this.push("completed",id)}if(this.currentStep<this.items.length){this.next()}},next:function next(){if(!this.items||0===this.items.length){console.warn("Can't select next step: the steps array is empty or undefined.");return}if(this.currentStep===this.items.length-1){console.warn("Can't select next step: you are already at the last step.");return}this.currentStep++},previous:function previous(){if(!this.items||0===this.items.length){console.warn("Can't select previous step: the steps array is empty or undefined.");return}if(0===this.currentStep){console.warn("Can't select previous step: you are already at the first step.");return}this.currentStep--},jumpToStep:function jumpToStep(index){if(!this.items||!this.items[index]){console.warn("Can't jump to step at index '"+index+"'; that step doesn't exist.");return}this.currentStep=index},_getIcon:function _getIcon(item){return-1<this.completed.indexOf(item.id)?"confirmed":"unconfirmed"},_getStepState:function _getStepState(item,index,currentStep,completed){if(index===currentStep){return"current"}else if(-1<completed.indexOf(item.id)){return"complete"}},_handleTap:function _handleTap(event){var id=event.currentTarget.id;this.fire("px-steps-tapped",{id:id})}});</script>
+</dom-module>
+</body></html>

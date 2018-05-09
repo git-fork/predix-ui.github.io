@@ -1,0 +1,35 @@
+<html><head><link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../px-moment-imports/px-moment-imports.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+<link rel="import" href="css/px-datetime-presets-styles.html">
+
+<!--
+The list of preset ranges in the rangepicker modal.
+
+### Usage
+
+    <px-datetime-presets preset-ranges="{{...}}">
+    </px-datetime-presets>
+
+
+@element px-datetime-presets
+@homepage index.html
+@demo index.html
+-->
+</head><body><dom-module id="px-datetime-presets">
+  <template>
+    <style include="px-datetime-presets-styles"></style>
+
+    <div class="presetTitle zeta">[[localize('Presets')]]</div>
+    <ul class="list-bare u-mt--">
+      <template is="dom-repeat" items="{{presetRanges}}" as="preset">
+        <li class="presetList">
+          <span class$="{{_getButtonClass(selectedItem, preset)}}" on-tap="_usePreset">{{preset.displayText}}</span>
+        </li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+
+<script>Polymer({is:"px-datetime-presets",behaviors:[Polymer.AppLocalizeBehavior],properties:{presetRanges:{type:Object,value:function value(){return[]}},selectedItem:{type:Object,value:function value(){return{}}},resources:{type:Object,value:function value(){return{en:{Presets:"Presets"}}}},language:{type:String,value:"en"},useKeyIfMissing:{type:Boolean,value:!0}},_usePreset:function _usePreset(e){this.set("selectedItem",e.model.preset);this.fire("px-preset-selected",e.model.preset)},_getButtonClass:function _getButtonClass(selectedItem,presetObject){var classlist=["actionable"];if(selectedItem===presetObject){classlist.push("actionable--select")}else{classlist.push("actionable--action")}return classlist.join(" ")}});</script>
+</body></html>

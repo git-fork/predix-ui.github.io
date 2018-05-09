@@ -1,0 +1,24 @@
+<html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="css/px-data-grid-select-all-styles.html">
+<link rel="import" href="px-data-grid-sorter.html">
+
+</head><body><dom-module id="px-data-grid-select-all">
+  <template>
+    <style include="px-data-grid-select-all-styles"></style>
+
+    <vaadin-checkbox aria-label="Select All" on-checked-changed="_onSelectAllCheckedChanged" checked="[[checked]]" indeterminate="[[indeterminate]]"></vaadin-checkbox>
+    <template is="dom-if" if="[[allowSortBySelection]]">
+      <px-data-grid-sorter path="--selection--">
+        ([[count]])
+      
+    </px-data-grid-sorter></template>
+    <template is="dom-if" if="[[!allowSortBySelection]]">
+        ([[count]])
+    </template>
+  </template>
+
+  <script>{var DataGridSelectAllElement=function(_Polymer$Element){babelHelpers.inherits(DataGridSelectAllElement,_Polymer$Element);function DataGridSelectAllElement(){babelHelpers.classCallCheck(this,DataGridSelectAllElement);return babelHelpers.possibleConstructorReturn(this,(DataGridSelectAllElement.__proto__||Object.getPrototypeOf(DataGridSelectAllElement)).apply(this,arguments))}babelHelpers.createClass(DataGridSelectAllElement,[{key:"_onSelectAllCheckedChanged",value:function _onSelectAllCheckedChanged(e){if(this.checkListener){this.checkListener(e)}}}],[{key:"is",get:function get(){return"px-data-grid-select-all"}},{key:"properties",get:function get(){return{indeterminate:{type:Boolean,value:!1},checked:{type:Boolean,value:!1},count:{type:Number,value:0},allowSortBySelection:{type:Boolean,value:!1},checkListener:{type:Function}}}}]);return DataGridSelectAllElement}(Polymer.Element);customElements.define(DataGridSelectAllElement.is,DataGridSelectAllElement);window.Predix=window.Predix||{};Predix.DataGridSelectAllElement=DataGridSelectAllElement}</script>
+
+
+</dom-module>
+</body></html>

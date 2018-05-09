@@ -1,0 +1,17 @@
+<html><head><link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="css/px-auto-filter-field-styles.html">
+<link rel="import" href="../px-icon-set/px-icon.html">
+<link rel="import" href="../app-localize-behavior/app-localize-behavior.html">
+
+</head><body><dom-module id="px-auto-filter-field">
+  <template>
+    <style include="px-auto-filter-field-styles"></style>
+    <div class="search__form">
+      <input id="search-field" class="text-input input--small search__box" type="text" name="autofilter" value="{{value::input}}" placeholder="{{placeholder}}">
+      
+      <px-icon class="search__icon" icon="px-utl:search"></px-icon>
+    </div>
+  </template>
+  <script>{var AutoFilterFieldElement=function(_Polymer$Element){babelHelpers.inherits(AutoFilterFieldElement,_Polymer$Element);function AutoFilterFieldElement(){babelHelpers.classCallCheck(this,AutoFilterFieldElement);return babelHelpers.possibleConstructorReturn(this,(AutoFilterFieldElement.__proto__||Object.getPrototypeOf(AutoFilterFieldElement)).apply(this,arguments))}babelHelpers.createClass(AutoFilterFieldElement,[{key:"_onChange",value:function _onChange(){var _this=this;this._renderDebouncer=Polymer.Debouncer.debounce(this._renderDebouncer,Polymer.Async.timeOut.after(this.timeout),function(){_this.dispatchEvent(new CustomEvent("filter-change",{detail:{value:_this.value},bubbles:!0}))})}}],[{key:"is",get:function get(){return"px-auto-filter-field"}},{key:"properties",get:function get(){return{placeholder:{type:String},timeout:{type:Number,value:400},value:{type:String,notify:!0,observer:"_onChange"}}}}]);return AutoFilterFieldElement}(Polymer.Element);customElements.define(AutoFilterFieldElement.is,AutoFilterFieldElement);window.Predix=window.Predix||{};Predix.AutoFilterFieldElement=AutoFilterFieldElement}</script>
+</dom-module>
+</body></html>
